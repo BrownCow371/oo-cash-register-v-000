@@ -1,5 +1,5 @@
 class CashRegister
-  attr_accessor :total, :discount
+  attr_accessor :total, :discount :previous_total
 
 
 
@@ -11,6 +11,7 @@ class CashRegister
 
   def add_item(item, price, quantity=1)
       @items<<item
+      @previous_total=self.total
       self.total = self.total+(price*quantity)
   end
 
@@ -21,6 +22,15 @@ class CashRegister
    else
      "There is no discount to apply."
    end
+  end
+
+  def items
+    @items
+  end
+
+  def void_last_transaction
+    self.items.pop
+    self.total = @previous_total
   end
 
 end
